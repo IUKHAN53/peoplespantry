@@ -1,0 +1,52 @@
+image: atlassian/default-image:2
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: 'PP-Deployment to development'
+          deployment: dev
+          script: 
+            - pipe: atlassian/ssh-run:0.4.1
+              variables:
+                SSH_USER: '$DL_DEV_SERVER_USER'
+                SERVER: '$DL_DEV_SERVER'
+                COMMAND: > 
+                  cd $DL_DEV_SERVER_PATH/$DEV_PROJECT_NAME && 
+                  git reset --hard && git pull origin $BITBUCKET_BRANCH && 
+                  sudo chown -R $USER:$USER vendor && 
+                  cd $DOCKER_COMPOSE_PATH &&
+                  docker-compose exec -u $DOCKER_USER $APP_NAME composer install -n &&
+                  docker-compose exec -u $DOCKER_USER $APP_NAME php artisan migrate --force
+    staging:
+      - step:
+          name: 'PP-Deployment to QA server'
+          deployment: qa
+          script: 
+            - pipe: atlassian/ssh-run:0.4.1
+              variables:
+                SSH_USER: '$DL_QA_SERVER_USER'
+                SERVER: '$DL_QA_SERVER'
+                COMMAND: > 
+                  cd $DL_QA_SERVER_PATH/$QA_PROJECT_NAME && 
+                  git reset --hard && git pull origin $BITBUCKET_BRANCH && 
+                  sudo chown -R $USER:$USER vendor && 
+                  cd $DOCKER_COMPOSE_PATH &&
+                  docker-compose exec -u $DOCKER_USER $APP_NAME composer install -n &&
+                  docker-compose exec -u $DOCKER_USER $APP_NAME php artisan migrate --force
+    production:
+      - step:
+          name: 'PP-Deployment to production'
+          deployment: staging
+          script: 
+            - pipe: atlassian/ssh-run:0.4.1
+              variables:
+                SSH_USER: '$DL_STAGING_SERVER_USER'
+                SERVER: '$DL_STAGING_SERVER'
+                COMMAND: > 
+                  cd $DL_STAGING_SERVER_PATH/$PROJECT_NAME && 
+                  git reset --hard && git pull origin $BITBUCKET_BRANCH && 
+                  sudo chown -R $USER:$USER vendor && 
+                  cd $DOCKER_COMPOSE_PATH &&
+                  docker-compose exec -u $DOCKER_USER $APP_NAME composer install -n &&
+                  docker-compose exec -u $DOCKER_USER $APP_NAME php artisan migrate --force

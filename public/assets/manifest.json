@@ -1,0 +1,67 @@
+{
+  "resources/admin/js/app.js": {
+    "file": "assets/app.0085fd21.js",
+    "src": "resources/admin/js/app.js",
+    "isEntry": true
+  },
+  "Editor/resources/js/index.js": {
+    "file": "assets/index.5ba60ce1.js",
+    "src": "Editor/resources/js/index.js",
+    "isEntry": true
+  },
+  "resources/frontend/css/custom.css": {
+    "file": "assets/custom.bed8c689.js",
+    "src": "resources/frontend/css/custom.css",
+    "isEntry": true
+  },
+  "resources/frontend/js/main.js": {
+    "file": "assets/main.cccbe431.js",
+    "src": "resources/frontend/js/main.js",
+    "isEntry": true
+  },
+  "resources/admin/css/app.css": {
+    "file": "assets/app.259bc175.css",
+    "src": "resources/admin/css/app.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/place-order.css": {
+    "file": "assets/place-order.cf0409e7.css",
+    "src": "resources/frontend/css/place-order.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/auth.css": {
+    "file": "assets/auth.d1be7121.css",
+    "src": "resources/frontend/css/auth.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/cart.css": {
+    "file": "assets/cart.4831dfea.css",
+    "src": "resources/frontend/css/cart.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/vendor-payment.css": {
+    "file": "assets/vendor-payment.9c4ebab8.css",
+    "src": "resources/frontend/css/vendor-payment.css",
+    "isEntry": true
+  },
+  "Editor/resources/css/gjs.css": {
+    "file": "assets/gjs.d1a8a5bb.css",
+    "src": "Editor/resources/css/gjs.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/shipping-address.css": {
+    "file": "assets/shipping-address.84f909c7.css",
+    "src": "resources/frontend/css/shipping-address.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/dev1.css": {
+    "file": "assets/dev1.a785d059.css",
+    "src": "resources/frontend/css/dev1.css",
+    "isEntry": true
+  },
+  "resources/frontend/css/style.css": {
+    "file": "assets/style.78b7fa47.css",
+    "src": "resources/frontend/css/style.css",
+    "isEntry": true
+  }
+}
