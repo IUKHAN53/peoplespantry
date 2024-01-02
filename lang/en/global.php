@@ -12,10 +12,8 @@ return [
     'current_version' => 'Current Version',
     'latest_version' => 'Latest Version',
     'email' => 'Email Address',
-    'name' => 'Name',
     'active' => 'Active',
     'code' => 'Code',
-    'default' => 'Default',
     'exchange_rate' => 'Exchange Rate',
     'format' => 'Format',
     'decimal_point' => 'Decimal Point',
@@ -132,6 +130,7 @@ return [
     'stock' => 'Stock',
     'show_deleted' => 'Show All Staff',
     'no_records' => 'No records Found',
+    'image' => 'Image',
 
     'customer.dashboard.title' => 'Customer Dashboard',
     'login.title' => 'Login',
@@ -191,5 +190,6 @@ return [
     'select-category-text' => '--- Select Category ---',
     'info-message.vendor-only-pickup-available' => 'This vendor only provides pickup',
     'info-message.vendor-location-unavailable' => 'This vendor does not deliver to your location',
+    'no_data' => 'No Data Found',
 
 ];

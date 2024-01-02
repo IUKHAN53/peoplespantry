@@ -104,4 +104,5 @@ return [
     'submit.label' => 'Save',
     'preview_profile.label' => 'Preview Profile',
     'featured' => 'Featured',
+    'description' => 'Description',
 ];

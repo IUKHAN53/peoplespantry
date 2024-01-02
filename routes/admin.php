@@ -1,39 +1,42 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\EditorController;
-use App\Http\Livewire\Admin\Cms\Menu\MenuController;
-use App\Http\Livewire\Admin\Form\FormShowController;
-use App\Http\Livewire\Admin\Form\FormIndexController;
-use App\Http\Livewire\Admin\Pages\PageShowController;
-use App\Http\Livewire\Admin\Order\OrderShowController;
-use App\Http\Livewire\Admin\Pages\PageIndexController;
-use App\Http\Livewire\Admin\Order\OrderIndexController;
-use App\Http\Livewire\Admin\Pages\PageCreateController;
-use App\Http\Livewire\Admin\Report\ReportIndexController;
-use App\Http\Livewire\Admin\Dashboard\DashboardController;
-use App\Http\Livewire\Admin\Cms\Menu\MenuBuilderController;
-use App\Http\Livewire\Admin\Profile\StaffProfileController;
-use App\Http\Livewire\Admin\System\Unit\UnitShowController;
-use App\Http\Livewire\Admin\Customer\CustomerShowController;
-use App\Http\Livewire\Admin\System\Unit\UnitIndexController;
-use App\Http\Livewire\Admin\Customer\CustomerIndexController;
-use App\Http\Livewire\Admin\System\Staff\StaffShowController;
-use App\Http\Livewire\Admin\System\Unit\UnitCreateController;
-use App\Http\Livewire\Admin\System\Staff\StaffIndexController;
-use App\Http\Livewire\Admin\System\Staff\StaffCreateController;
-use App\Http\Livewire\Admin\Catalog\Product\ProductShowController;
-use App\Http\Livewire\Admin\System\Setting\SettingIndexController;
-use App\Http\Livewire\Admin\Catalog\Product\ProductIndexController;
-use App\Http\Livewire\Admin\Catalog\Category\CategoryShowController;
-use App\Http\Livewire\Admin\Catalog\Category\CategoryIndexController;
+use App\Http\Livewire\Admin\Badges\BadgeCreateController;
+use App\Http\Livewire\Admin\Badges\BadgeIndexController;
+use App\Http\Livewire\Admin\Badges\BadgeShowController;
 use App\Http\Livewire\Admin\Catalog\Category\CategoryCreateController;
+use App\Http\Livewire\Admin\Catalog\Category\CategoryIndexController;
+use App\Http\Livewire\Admin\Catalog\Category\CategoryShowController;
 use App\Http\Livewire\Admin\Catalog\DietaryRistrictions\DietaryCreateController;
-use App\Http\Livewire\Admin\Catalog\Nutrition\NutritionShowController;
-use App\Http\Livewire\Admin\Catalog\Nutrition\NutritionIndexController;
-use App\Http\Livewire\Admin\Catalog\Nutrition\NutritionCreateController;
 use App\Http\Livewire\Admin\Catalog\DietaryRistrictions\DietaryIndexController;
 use App\Http\Livewire\Admin\Catalog\DietaryRistrictions\DietaryShowController;
+use App\Http\Livewire\Admin\Catalog\Nutrition\NutritionCreateController;
+use App\Http\Livewire\Admin\Catalog\Nutrition\NutritionIndexController;
+use App\Http\Livewire\Admin\Catalog\Nutrition\NutritionShowController;
+use App\Http\Livewire\Admin\Catalog\Product\ProductIndexController;
+use App\Http\Livewire\Admin\Catalog\Product\ProductShowController;
+use App\Http\Livewire\Admin\Cms\Menu\MenuBuilderController;
+use App\Http\Livewire\Admin\Cms\Menu\MenuController;
+use App\Http\Livewire\Admin\Customer\CustomerIndexController;
+use App\Http\Livewire\Admin\Customer\CustomerShowController;
+use App\Http\Livewire\Admin\Dashboard\DashboardController;
+use App\Http\Livewire\Admin\Form\FormIndexController;
+use App\Http\Livewire\Admin\Form\FormShowController;
+use App\Http\Livewire\Admin\Order\OrderIndexController;
+use App\Http\Livewire\Admin\Order\OrderShowController;
+use App\Http\Livewire\Admin\Pages\PageCreateController;
+use App\Http\Livewire\Admin\Pages\PageIndexController;
+use App\Http\Livewire\Admin\Pages\PageShowController;
+use App\Http\Livewire\Admin\Profile\StaffProfileController;
+use App\Http\Livewire\Admin\Report\ReportIndexController;
+use App\Http\Livewire\Admin\System\Setting\SettingIndexController;
+use App\Http\Livewire\Admin\System\Staff\StaffCreateController;
+use App\Http\Livewire\Admin\System\Staff\StaffIndexController;
+use App\Http\Livewire\Admin\System\Staff\StaffShowController;
+use App\Http\Livewire\Admin\System\Unit\UnitCreateController;
+use App\Http\Livewire\Admin\System\Unit\UnitIndexController;
+use App\Http\Livewire\Admin\System\Unit\UnitShowController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth.admin:admin')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
@@ -61,6 +64,11 @@ Route::middleware('auth.admin:admin')->group(function () {
     Route::middleware('permission:manage-customers')->group(function () {
         Route::get('customer', CustomerIndexController::class)->name('customer.index');
         Route::get('customer/{customer}', CustomerShowController::class)->name('customer.show');
+    });
+    Route::middleware('permission:manage-badges')->group(function () {
+        Route::get('badge/index', BadgeIndexController::class)->name('badges.index');
+        Route::get('badge/create', BadgeCreateController::class)->name('badges.create');
+        Route::get('badge/{badge}', BadgeShowController::class)->name('badges.show');
     });
 
     Route::middleware('permission:manage-orders')->group(function () {

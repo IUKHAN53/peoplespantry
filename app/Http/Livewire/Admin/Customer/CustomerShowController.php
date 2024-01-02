@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Customer;
 
+use App\Models\BadgeRequest;
 use App\Models\VendorRequest;
 use Exception;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -11,6 +12,7 @@ use Illuminate\Support\Collection;
 class CustomerShowController extends CustomerAbstract
 {
     protected Collection $vendorRequests;
+    protected Collection $badgeRequests;
 
     /**
      * Should the browser be visible?
@@ -27,6 +29,7 @@ class CustomerShowController extends CustomerAbstract
     public bool $showField = false;
 
     public ?string $rejected_reason = null;
+    public ?string $comments = null;
 
     /**
      * Define the validation rules.
@@ -46,7 +49,10 @@ class CustomerShowController extends CustomerAbstract
     public function render(): View
     {
         return $this->view('admin.customer.customer-show-controller', function (View $view) {
-            $view->with('vendorRequests', $this->getVendorRequests());
+            $view->with([
+                'vendorRequests'=> $this->getVendorRequests(),
+                'badgeRequests'=> $this->getBadgeRequests(),
+            ]);
         });
     }
 
@@ -88,4 +94,34 @@ class CustomerShowController extends CustomerAbstract
 
         $this->notify(trans('notifications.vendor_request_updated'), 'admin.customer.index');
     }
+
+    public function getBadgeRequests(): Paginator
+    {
+        $query = BadgeRequest::query()->where('user_id', $this->customer->id);
+
+        return $query->paginate(5);
+    }
+
+    public function approveBadgeRequest(BadgeRequest $badgeRequest): void
+    {
+        try {
+            $badgeRequest->approveRequest();
+        } catch (Exception $ex) {
+            $this->emit('alert-danger', $ex->getMessage());
+        }
+
+        $this->notify(trans('notifications.vendor_request_updated'), 'admin.customer.index');
+    }
+
+    public function rejectBadgeRequest(BadgeRequest $badgeRequest): void
+    {
+        $this->validate(
+            ['comments' => 'required']
+        );
+
+        $badgeRequest->rejectWithComments($this->comments);
+
+        $this->notify(trans('notifications.vendor_request_updated'), 'admin.customer.index');
+    }
+
 }

@@ -2,27 +2,28 @@
 
 namespace App\Models;
 
-use Exception;
-use App\Traits\OwnsModels;
-use Illuminate\Support\Str;
-use Spatie\Sluggable\HasSlug;
 use App\DTO\Payments\Customer;
 use App\Managers\PaymentManager;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Sluggable\SlugOptions;
-use Spatie\Permission\Traits\HasRoles;
+use App\Traits\OwnsModels;
+use Exception;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasPermissions;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @property-read \App\Models\Vendor $vendor
@@ -31,15 +32,15 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasSlug;
     use HasApiTokens;
     use HasFactory;
-    use Notifiable;
-    use HasRoles;
     use HasPermissions;
-    use InteractsWithMedia;
-    use OwnsModels;
     use HasRelationships;
+    use HasRoles;
+    use HasSlug;
+    use InteractsWithMedia;
+    use Notifiable;
+    use OwnsModels;
 
     /**
      * The attributes that are mass assignable.
@@ -79,6 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(VendorRequest::class);
     }
+
 
     public function vendor(): HasOne
     {
@@ -147,7 +149,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => ucfirst($this->first_name) . ' ' . ucfirst($this->last_name),
+            get: fn ($value) => ucfirst($this->first_name).' '.ucfirst($this->last_name),
         );
     }
 
@@ -172,7 +174,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function scopeSearch($query, $term)
     {
-        if (!$term) {
+        if (! $term) {
             return;
         }
         $parts = explode(' ', $term);
@@ -197,7 +199,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function createStripeCustomer()
     {
-        if (!$this->stripe_customer_id) {
+        if (! $this->stripe_customer_id) {
 
             $response = app(PaymentManager::class)->driver('stripe')->createCustomer(new Customer(
                 id: Str::random(10),
@@ -206,7 +208,7 @@ class User extends Authenticatable implements MustVerifyEmail
             ));
 
             throw_if(
-                !$response->success,
+                ! $response->success,
                 Exception::class,
                 trans('exceptions.payment_attach_exception')
             );
@@ -215,7 +217,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $customer = $response->data;
 
             $this->update([
-                'stripe_customer_id' => $customer->id
+                'stripe_customer_id' => $customer->id,
             ]);
         }
     }

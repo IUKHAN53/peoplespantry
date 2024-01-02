@@ -65,6 +65,13 @@ class MenuService
                         ->route('admin.customer.index');
                 })
                 ->addItem(function (MenuItem $item) {
+                    $item->name('Badges')
+                        ->handle('admin.badges')
+                        ->permission('manage-badges')
+                        ->icon('bookmark-alt')
+                        ->route('admin.badges.index');
+                })
+                ->addItem(function (MenuItem $item) {
                     $item->name('Order')
                         ->handle('admin.order')
                         ->permission('manage-orders')

@@ -107,6 +107,21 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{ route('vendor.request-badges') }}" class="vendor-dash-board-content">
+                        <div class="vendor-image">
+                            <img src="{{ asset('/frontend/images/badge.svg') }}" alt="Request Badge">
+                        </div>
+                        <div class="vendor-profile-detail">
+                            <h4>
+                                Request Badge
+                            </h4>
+                            <p>
+                                Request for a certification badge
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

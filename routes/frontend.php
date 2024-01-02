@@ -14,6 +14,7 @@ use App\Http\Livewire\Frontend\Customer\Orders\OrderShowController;
 use App\Http\Livewire\Frontend\Customer\PaymentMethods\PaymentMethodCreateController;
 use App\Http\Livewire\Frontend\Customer\PaymentMethods\PaymentMethodIndexController;
 use App\Http\Livewire\Frontend\Customer\ProfileController;
+use App\Http\Livewire\Frontend\Vendor\Badge\BadgeIndexController;
 use App\Http\Livewire\Frontend\Vendor\Dashboard as VendorDashboard;
 use App\Http\Livewire\Frontend\Vendor\Message\MessageIndexController;
 use App\Http\Livewire\Frontend\Vendor\Message\MessageShowController;
@@ -67,6 +68,8 @@ Route::middleware('auth', 'auth.active')->group(function () {
 
         Route::get('reviews', ReviewIndexController::class)->name('reviews');
         Route::get('review/{review}', ReviewShowController::class)->name('review.show');
+
+        Route::get('request-badges', BadgeIndexController::class)->name('request-badges');
     });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
