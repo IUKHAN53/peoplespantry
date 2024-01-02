@@ -77,7 +77,7 @@ class BadgeIndexController extends Component
             $badges->orderBy('name', 'DESC');
         }
 
-        return $badges->latest('created_at')->paginate(10);
+        return $badges->latest('created_at')->paginate(3);
     }
 
     public function resetFields(): void
@@ -103,7 +103,7 @@ class BadgeIndexController extends Component
         $badge_request->save();
         $this->notify(
             __('badges.request.created'),
-            'vendor.vendor-profile'
+            'vendor.dashboard'
         );
     }
 }

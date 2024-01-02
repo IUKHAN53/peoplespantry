@@ -114,10 +114,10 @@
                         </div>
                         <div class="vendor-profile-detail">
                             <h4>
-                                Request Badge
+                                Licensing Verification
                             </h4>
                             <p>
-                                Request for a certification badge
+                                Request a badge to show your license
                             </p>
                         </div>
                     </a>

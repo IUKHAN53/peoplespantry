@@ -9,7 +9,7 @@
                                 <div class="vender-menu vendor-aside">
                                     <x-menu :name="$menuName" current="{{ request()->route()->getName() }}">
                                         @foreach ($component->items as $item)
-                                            <a class="nav-link 
+                                            <a class="nav-link
                                                 @if ($item->isActive($component->attributes->get('current'))) active @endif" href="{{ route($item->route) }}">
                                                 <img src="/frontend/images/{{ $item->icon }}.svg" alt="">
                                                 {{ $item->name }}

@@ -52,34 +52,41 @@
             </div>
         </form>
         @forelse ($badges as $badge)
-            <div class="d-flex justify-content-between align-items-center mb-3 w-100 gap-3 px-3 rounded-2 shadow py-2"
-                 style="background-color: rgba(159,151,128,.6) !important;">
-                <div class="d-flex align-items-center justify-content-start gap-5 w-100">
-                    <img src="{{ $badge->image }}" class="rounded-circle" style="width: 50px; height: 50px;"
-                         alt="Badge Image">
-                    <div>
-                        <h5>{{ $badge->name }}</h5>
-                        <p>{{ $badge->description }}</p>
+            <div class="rounded-2 shadow mb-3" style="background-color: rgba(159,151,128,.6) !important;">
+                <div class="d-flex justify-content-between align-items-center w-100 gap-3 px-3 py-2">
+                    <div class="d-flex align-items-center justify-content-start gap-5 w-100">
+                        <img src="{{ $badge->image }}" class="rounded-circle" style="width: 50px; height: 50px;"
+                             alt="Badge Image">
+                        <div>
+                            <h5>{{ $badge->name }}</h5>
+                            <p>{{ $badge->description }}</p>
+                        </div>
+                    </div>
+                    @php($requestedBadge = $badge->requestedByAuth())
+                    <div class="w-100 text-end d-flex flex-column justify-content-center gap-3 align-items-end w-100">
+                        <button class="btn btn-primary"
+                                wire:click="requestBadge('{{$badge->id}}')" {{$requestedBadge ? 'disabled' : ''}}>
+                            {{$requestedBadge ? ucfirst($requestedBadge->status) : 'Request Badge'}}
+                        </button>
+                        <!-- Request Button -->
                     </div>
                 </div>
+                @if($requestedBadge)
+                    <hr>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center">
 
-                <div class="w-100 text-end d-flex flex-column justify-content-center gap-3 align-items-end w-100">
-                    <!-- Request Button -->
-                    @php($requestedBadge = $badge->requestedByAuth())
-                    @if($requestedBadge)
-                        <button class="btn btn-primary" disabled>{{ucfirst($requestedBadge->status)}}</button>
-                        <p>Requested at: {{$requestedBadge->requested_at}}</p>
+                        <small>Requested at: {{$requestedBadge->requested_at}}</small>
                         @if($requestedBadge->status == 'approved')
-                            <p>Approved at: {{$requestedBadge->approved_at}}</p>
+                            <small>| Approved at: {{$requestedBadge->approved_at}}</small>
                         @elseif($requestedBadge->status == 'rejected')
-                            <p>Rejected at: {{$requestedBadge->rejected_at}}</p>
+                            <small>| Rejected at: {{$requestedBadge->rejected_at}}</small>
                         @endif
-                    @else
-                        <button class="btn btn-primary" wire:click="requestBadge('{{$badge->id}}')">Request Badge
-                        </button>
-                    @endif
-                </div>
+
+                    </div>
+                @endif
+
             </div>
+
         @empty
             <p>No Badges Available</p>
         @endforelse

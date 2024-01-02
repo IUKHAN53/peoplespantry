@@ -22,7 +22,7 @@ class MenuService
         /** @var \App\Menu\Menu | null */
         $menu = $this->getMenuList()->where('name', $name)->first();
 
-        if (! $menu) {
+        if (!$menu) {
             throw new Exception("Menu Not found with name \"{$name}\"");
         }
 
@@ -258,6 +258,12 @@ class MenuService
                         ->handle('vendor.payment.history')
                         ->icon('payment-history-icon')
                         ->route('vendor.payment.history.index');
+                })
+                ->addItem(function (MenuItem $item) {
+                    $item->name('Licensing Verification')
+                        ->handle('vendor.request-badges')
+                        ->icon('badge')
+                        ->route('vendor.request-badges');
                 }),
         ]);
     }
