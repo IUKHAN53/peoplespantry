@@ -40,7 +40,9 @@
                 <x-admin.components.table.row wire:loading.class.delay="opacity-50">
                     <x-admin.components.table.cell>{{ $badge->name }}</x-admin.components.table.cell>
                     <x-admin.components.table.cell>{{ $badge->description }}</x-admin.components.table.cell>
-                    <x-admin.components.table.cell><img src="{{ $badge->image }}" style="width: 70px; height: 70px; border-radius: 100%" alt=""></x-admin.components.table.cell>
+                    <x-admin.components.table.cell><img src="{{ $badge->image }}"
+                                                        style="width: 70px; height: 70px; border-radius: {{$badge->shape == 'round' ? 100: 2}}%"
+                                                        alt=""></x-admin.components.table.cell>
                     <x-admin.components.table.cell>{{ $badge->created_at->format('m/d/Y') }}</x-admin.components.table.cell>
                     <x-admin.components.table.cell>
                         <a href="{{ route('admin.badges.show', $badge->id) }}" class="text-indigo-500 hover:underline">

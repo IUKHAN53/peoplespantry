@@ -31,6 +31,7 @@ class BadgeCreateController extends Component
     {
         return [
             'badge.name' => 'required',
+            'badge.shape' => 'required',
             'badge.description' => 'required',
             'image' => is_string($this->image) ? '' : 'image|required',
         ];

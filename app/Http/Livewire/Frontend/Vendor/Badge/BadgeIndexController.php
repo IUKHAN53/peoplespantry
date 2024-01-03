@@ -101,9 +101,5 @@ class BadgeIndexController extends Component
         $badge_request->user_id = Auth::Guard('web')->id();
         $badge_request->badge_id = $badge->id;
         $badge_request->save();
-        $this->notify(
-            __('badges.request.created'),
-            'vendor.dashboard'
-        );
     }
 }

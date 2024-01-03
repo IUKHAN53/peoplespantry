@@ -148,20 +148,17 @@
                             <x-admin.components.table.cell>
                                 <span
                                     class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                    {{ $badgeRequest->status }}
+                                    {{ ucfirst($badgeRequest->status) }}
                                 </span>
                             </x-admin.components.table.cell>
                             <x-admin.components.table.cell>
-                                @if ($badgeRequest->status == 'pending')
-                                    <x-admin.components.button wire:loading type="button"
-                                                               wire:key="badge_request_{{ $badgeRequest->id }}"
-                                                               @click="$dispatch('showslideover', {{ $badgeRequest->id }})">
-                                        Update Request
-                                        @include('admin.layouts.livewire.button-loading')
-                                    </x-admin.components.button>
-                                @endif
+                                <x-admin.components.button wire:loading type="button"
+                                                           wire:key="badge_request_{{ $badgeRequest->id }}"
+                                                           @click="$dispatch('showslideover', {{ $badgeRequest->id }})">
+                                    Update Request
+                                    @include('admin.layouts.livewire.button-loading')
+                                </x-admin.components.button>
                             </x-admin.components.table.cell>
-
                         </x-admin.components.table.row>
                     @empty
                         <x-admin.components.table.row>

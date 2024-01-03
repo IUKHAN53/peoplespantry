@@ -13,9 +13,15 @@
                         <x-admin.components.input.text wire:model.defer="badge.description" name="description"
                                                        id="description" :error="$errors->first('badge.description')"/>
                     </x-admin.components.input.group>
+                    <x-admin.components.input.group for="shape" label="Nutrition"
+                                                    :error="$errors->first('badge.shape')">
+                        <x-admin.components.input.select id="input_shape" wire:model.defer="badge.shape">
+                            <option value="" disabled>Choose Badge Shape</option>
+                            <option value="round">Rounded</option>
+                            <option value="square">Squared</option>
+                        </x-admin.components.input.select>
+                    </x-admin.components.input.group>
                 </div>
-            </x-admin.components.card>
-            <x-admin.components.card heading="Badge Image">
                 <div>
                     <h4 class="pb-2">{{ __('badges.image.label') }}</h4>
                     <div x-data="{
@@ -24,7 +30,6 @@
                         <x-fileupload label="<span class='plus'>+</span>" :imagesHolder="null" wire:model="image"
                                       :filetypes="['image/*']" :multiple="false"/>
                     </div>
-
                     @if ($image)
                         <div class="feature-upload relative flex-wrap d-flex flex-row rounded border p-2">
                             <div class="preview-img">
@@ -111,14 +116,12 @@
                             {{ $badgeRequest->created_at->format('m/d/Y') }}
                         </x-admin.components.table.cell>
                         <x-admin.components.table.cell>
-                            @if ($badgeRequest->status == 'pending')
-                                <x-admin.components.button wire:loading type="button"
-                                                           wire:key="badge_request_{{ $badgeRequest->id }}"
-                                                           @click="$dispatch('showslideover', {{ $badgeRequest->id }})">
-                                    Update Request
-                                    @include('admin.layouts.livewire.button-loading')
-                                </x-admin.components.button>
-                            @endif
+                            <x-admin.components.button wire:loading type="button"
+                                                       wire:key="badge_request_{{ $badgeRequest->id }}"
+                                                       @click="$dispatch('showslideover', {{ $badgeRequest->id }})">
+                                Update Request
+                                @include('admin.layouts.livewire.button-loading')
+                            </x-admin.components.button>
                         </x-admin.components.table.cell>
 
                     </x-admin.components.table.row>
@@ -131,7 +134,7 @@
                         </x-admin.components.table.cell>
                     </x-admin.components.table.row>
                 @endforelse
-                    <x-badge-request-status-action/>
+                <x-badge-request-status-action/>
             </x-slot>
         </x-admin.components.table>
     </div>

@@ -11,6 +11,14 @@
                 <x-admin.components.input.text wire:model.defer="badge.description" name="description" id="description"
                                                :error="$errors->first('badge.description')"/>
             </x-admin.components.input.group>
+            <x-admin.components.input.group for="shape" label="Nutrition"
+                                            :error="$errors->first('badge.shape')">
+                <x-admin.components.input.select id="input_shape" wire:model.defer="badge.shape">
+                    <option value="" disabled>Choose Badge Shape</option>
+                    <option value="round">Rounded</option>
+                    <option value="square">Squared</option>
+                </x-admin.components.input.select>
+            </x-admin.components.input.group>
         </div>
     </x-admin.components.card>
     <x-admin.components.card heading="Badge Image">

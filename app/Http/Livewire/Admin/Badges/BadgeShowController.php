@@ -37,6 +37,7 @@ class BadgeShowController extends Component
     {
         return [
             'badge.name' => 'required',
+            'badge.shape' => 'required',
             'badge.description' => 'required',
             'image' => ($this->image_link) ? '' : 'image|required',
         ];

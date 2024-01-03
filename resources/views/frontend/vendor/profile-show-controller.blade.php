@@ -1,3 +1,61 @@
+<style>
+    @media only screen and (max-width: 599px) {
+        /* CSS for extra small devices like phones */
+        #webView {
+            display: none;
+        }
+
+        #mobileView {
+            display: flex;
+        }
+    }
+
+    @media only screen and (min-width: 600px) {
+        /* CSS for small devices like phones */
+        #webView {
+            display: none;
+        }
+
+        #mobileView {
+            display: flex;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        /* CSS for medium devices like tablets */
+        #webView {
+            display: none;
+        }
+
+        #mobileView {
+            display: flex;
+        }
+    }
+
+    @media only screen and (min-width: 992px) {
+        /* CSS for large devices like desktops */
+        #webView {
+            display: flex;
+        }
+
+        #mobileView {
+            display: none;
+        }
+    }
+
+    @media only screen and (min-width: 1200px) {
+        /* CSS for extra large devices like large desktops */
+        #webView {
+            display: flex;
+        }
+
+        #mobileView {
+            display: none;
+        }
+    }
+
+</style>
+
 <div class="inner-section">
     <div class="vendor-profile-main">
         <section>
@@ -16,11 +74,12 @@
         </section>
 
         <section>
-            <div class="d-flex flex-column gap-3 justify-content-center align-items-center position-absolute"
-                 style="left: 150px; margin-top: -50px">
+            <div class="flex-column gap-3 justify-content-center align-items-center position-absolute"
+                 style="left: 150px; margin-top: -50px" id="webView">
                 @foreach($vendor->approvedBadges() as $badge)
                     <img src="{{$badge->badge->image}}" class="shadow"
-                         style="width: 80px; height: 80px; border: 1px solid black; border-radius: 100%" alt="">
+                         style="width: 80px; height: 80px; border: 1px solid dimgrey;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: {{$badge->badge->shape == 'round' ? 100: 2}}%"
+                         alt="">
                 @endforeach
             </div>
             <div class="container">
@@ -97,6 +156,13 @@
                                     {{ trans('catalog.categories.record_not_found') }}
                                 </div>
                             @endforelse
+                        </div>
+                        <div class="flex-wrap gap-3 justify-content-center align-items-center mb-3" id="mobileView">
+                            @foreach($vendor->approvedBadges() as $badge)
+                                <img src="{{$badge->badge->image}}" class="shadow"
+                                     style="width: 80px; height: 80px; border: 1px solid dimgrey;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: {{$badge->badge->shape == 'round' ? 100: 2}}%"
+                                     alt="">
+                            @endforeach
                         </div>
                     </div>
                 </div>

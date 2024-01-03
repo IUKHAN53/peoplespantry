@@ -21,7 +21,7 @@
 
 9. Access your app on browser with <http://localhost>:{PORT} from .docker/.env}
 
-10. To run any commands on php artisan open docker shell by running `docker exec -u docker_app_user -it {project name from .docker/.env}_php_service bash`.
+10. To run any commands on php artisan open docker shell by running `docker exec -u docker_app_user -it pp_live_php_service bash`.
 
 ## Post Installation Instructions
 

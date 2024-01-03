@@ -55,7 +55,7 @@
             <div class="rounded-2 shadow mb-3" style="background-color: rgba(159,151,128,.6) !important;">
                 <div class="d-flex justify-content-between align-items-center w-100 gap-3 px-3 py-2">
                     <div class="d-flex align-items-center justify-content-start gap-5 w-100">
-                        <img src="{{ $badge->image }}" class="rounded-circle" style="width: 50px; height: 50px;"
+                        <img src="{{ $badge->image }}" class="{{$badge->shape == 'round' ? 'rounded-circle': ''}}" style="width: 50px; height: 50px;"
                              alt="Badge Image">
                         <div>
                             <h5>{{ $badge->name }}</h5>
